@@ -1,0 +1,74 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Bootcamp {
+  + Bootcamp(): 
+  + Bootcamp(String, String): 
+  - dataInicio: LocalDate
+  - descricao: String
+  - devsInscritos: Set<Dev>
+  - nome: String
+  - dataFim: LocalDate
+  - conteudos: Set<Conteudo>
+  + toString(): String
+   dataFim: LocalDate
+   descricao: String
+   nome: String
+   conteudos: Set<Conteudo>
+   dataInicio: LocalDate
+   devsInscritos: Set<Dev>
+}
+class Conteudo {
+  + Conteudo(String, String): 
+  + Conteudo(): 
+  - titulo: String
+  - descricao: String
+  + calcularXp(): Double
+   descricao: String
+   titulo: String
+}
+class Curso {
+  + Curso(String, String, int): 
+  + Curso(): 
+  - cargaHoraria: int
+  + calcularXp(): Double
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+   cargaHoraria: int
+}
+class Dev {
+  + Dev(String): 
+  + Dev(): 
+  - nome: String
+  - conteudosInscritos: Set<Conteudo>
+  - conteudosConcluidos: Set<Conteudo>
+  + equals(Object): boolean
+  + inscreverBootcamp(Bootcamp): void
+  + calcularXP(): Double
+  + progredir(): void
+  + hashCode(): int
+   nome: String
+   conteudosInscritos: Set<Conteudo>
+   conteudosConcluidos: Set<Conteudo>
+}
+class Mentoria {
+  + Mentoria(): 
+  + Mentoria(String, String, LocalDate): 
+  - data: LocalDate
+  + toString(): String
+  + calcularXp(): Double
+  + hashCode(): int
+  + equals(Object): boolean
+   data: LocalDate
+}
+
+Bootcamp "1" *-[#595959,plain]-> "conteudos\n*" Conteudo 
+Bootcamp "1" *-[#595959,plain]-> "devsInscritos\n*" Dev      
+Curso     -[#000082,plain]-^  Conteudo 
+Dev      "1" *-[#595959,plain]-> "conteudosInscritos\n*" Conteudo 
+Mentoria  -[#000082,plain]-^  Conteudo 
+@enduml
